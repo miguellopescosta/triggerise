@@ -66,11 +66,11 @@ public class CheckoutOperation extends Operation {
 
         LOG.info("Calculating: " + price + ", " + quantity + ", " + item);
 
-        if(item.equals("MUG") && quantity > 1){
+        if (item.equals("MUG") && quantity > 1) {
 
-            return price * (quantity/2) + price * (quantity%2);
+            return price * (quantity / 2) + price * (quantity % 2);
 
-        } else if(item.equals("TSHIRT") && quantity > 2) {
+        } else if (item.equals("TSHIRT") && quantity > 2) {
 
             return price * quantity * 0.7;
 
@@ -87,7 +87,7 @@ public class CheckoutOperation extends Operation {
         }
     }
 
-    private void defineInfo(){
+    private void defineInfo() {
 
         if (status.getMessage() != null) {
             status.setInfo(new StringBuilder("Invalid items on the list"));
@@ -95,6 +95,11 @@ public class CheckoutOperation extends Operation {
             status.setMessage(new StringBuilder("Ok"));
             status.setInfo(new StringBuilder("Success"));
         }
+    }
+
+    public Map<String, Integer> getItemList() {
+
+        return this.itemList;
     }
 
 }

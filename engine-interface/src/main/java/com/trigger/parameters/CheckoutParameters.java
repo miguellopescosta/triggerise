@@ -15,4 +15,8 @@ public class CheckoutParameters extends ParametersValidation {
     private List<String> codes;
     private Map<String, Double> pricingRules;
 
+    public CheckoutParameters(List<String> codes) {
+        super();
+        this.codes = codes;
+    }
 }
