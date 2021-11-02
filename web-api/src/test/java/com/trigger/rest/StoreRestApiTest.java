@@ -3,28 +3,22 @@ package com.trigger.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trigger.StoreEngine;
 import com.trigger.parameters.CheckoutParameters;
-import com.trigger.rest.mapper.Mapper;
 import com.trigger.rest.views.request.CheckoutRequest;
 import com.trigger.results.CheckoutResult;
 import com.trigger.results.Status;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -36,7 +30,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = StoreRestApi.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class StoreRestApiTest {
 
     @Autowired
@@ -46,7 +42,7 @@ class StoreRestApiTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private ModelMapper mapper;
+    private ModelMapper modelmapper;
 
     @MockBean
     private StoreEngine storeEngine;
@@ -63,7 +59,7 @@ class StoreRestApiTest {
     void buyItems() throws Exception {
 
         CheckoutRequest requestExample = new CheckoutRequest(List.of("MUG","MUG","TSHIRT","USBKEY"));
-        CheckoutParameters params = Mapper.getInstance().map(requestExample, CheckoutParameters.class);
+        CheckoutParameters params = new ModelMapper().map(requestExample, CheckoutParameters.class);
         CheckoutResult checkoutResult = new CheckoutResult(Arrays.asList("USBKEY (1 items)", "TSHIRT (1 items)", "MUG (2 items)"),
                 new BigDecimal(35), new Status(new StringBuilder("Success"), new StringBuilder("Ok")));
 

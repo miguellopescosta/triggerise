@@ -11,4 +11,10 @@ import org.springframework.context.annotation.Scope;
 @Import(value = {ConfigA.class, ConfigB.class})
 public class ConfigC {
 
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public ModelMapper modelmapper() {
+        return new ModelMapper();
+    }
+
 }

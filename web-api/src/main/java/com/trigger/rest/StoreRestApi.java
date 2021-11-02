@@ -3,13 +3,13 @@ package com.trigger.rest;
 import com.trigger.StoreEngine;
 import com.trigger.parameters.CheckoutParameters;
 import com.trigger.rest.errorhandling.InvalidParametersException;
-import com.trigger.rest.mapper.Mapper;
 import com.trigger.rest.views.errors.Status;
 import com.trigger.rest.views.request.CheckoutRequest;
 import com.trigger.rest.views.response.ResponseWithData;
 import com.trigger.rest.views.response.CheckoutResponse;
 import com.trigger.results.CheckoutResult;
 import lombok.SneakyThrows;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,12 @@ public class StoreRestApi {
 
     private static final Logger LOG = LoggerFactory.getLogger(StoreRestApi.class);
     private final StoreEngine engine;
+    private final ModelMapper mapper;
 
     @Autowired
-    public StoreRestApi(StoreEngine engine) {
+    public StoreRestApi(StoreEngine engine, ModelMapper mapper) {
         this.engine = engine;
+        this.mapper = mapper;
     }
 
     @GetMapping("/pricing")
@@ -52,7 +54,7 @@ public class StoreRestApi {
         LOG.info("Request received: " + checkoutRequest.toString());
 
         /* Mapping values to assigned engine interface */
-        CheckoutParameters params = Mapper.getInstance().map(checkoutRequest, CheckoutParameters.class);
+        CheckoutParameters params = mapper.map(checkoutRequest, CheckoutParameters.class);
 
         String errors = null;
 
@@ -73,12 +75,8 @@ public class StoreRestApi {
         /* We invoke the engine interface to obtain the checkout result and immediately map to the response */
         CheckoutResult result = engine.checkout(params);
 
-        CheckoutResponse checkoutResponse = Mapper.getInstance().map(result, CheckoutResponse.class);
-
-        Status status = Mapper.getInstance().map(result.getMessage(), Status.class);
-
         /* We can add additional errors in the response */
-        return new ResponseWithData<>(checkoutResponse, status);
+        return new ResponseWithData<>(mapper.map(result, CheckoutResponse.class), mapper.map(result.getMessage(), Status.class));
     }
 
 }
