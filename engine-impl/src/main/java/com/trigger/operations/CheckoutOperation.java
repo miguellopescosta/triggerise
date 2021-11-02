@@ -1,4 +1,4 @@
-package com.trigger.Operations;
+package com.trigger.operations;
 
 
 import com.trigger.results.CheckoutResult;
@@ -62,6 +62,7 @@ public class CheckoutOperation extends Operation {
 
     }
 
+    /* This should be on utils * fix */
     private double calculate(Double price, Integer quantity, String item) {
 
         LOG.info("Calculating: " + price + ", " + quantity + ", " + item);

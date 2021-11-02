@@ -2,7 +2,7 @@ package com.trigger.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trigger.ConfigC;
-import com.trigger.Operations.CheckoutOperation;
+import com.trigger.operations.CheckoutOperation;
 import com.trigger.StoreEngine;
 import com.trigger.rest.views.request.CheckoutRequest;
 import org.junit.jupiter.api.Test;

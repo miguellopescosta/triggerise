@@ -1,4 +1,4 @@
-package com.trigger.Operations;
+package com.trigger.operations;
 
 import com.trigger.results.CheckoutResult;
 

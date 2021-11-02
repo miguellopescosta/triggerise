@@ -1,6 +1,6 @@
 package com.trigger;
 
-import com.trigger.Operations.CheckoutOperation;
+import com.trigger.operations.CheckoutOperation;
 import com.trigger.parameters.CheckoutParameters;
 import com.trigger.results.CheckoutResult;
 import org.springframework.stereotype.Component;

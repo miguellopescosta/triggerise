@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PriceRepository<Price> extends JpaRepository<Price, Long> {
 
+
 }

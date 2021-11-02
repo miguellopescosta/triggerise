@@ -13,5 +13,6 @@ public class CheckoutResponse implements Serializable {
 
     private List<String> names;
     private BigDecimal price;
+    private String productDetails;
 
 }
