@@ -6,4 +6,4 @@ The database layer, was partly done since the main objective was not implementin
 
 Only two Rest services were implemented, for the sole purpose of providing a complete view of the architecture and possibilitate integrated tests.
 
-Currently, the integrated test buyItems(), on the web-api module, is not working properly.
+Currently, all tests, unity and integrated tests, working properly.
